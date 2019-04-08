@@ -69,8 +69,11 @@ if(process.env.NODE_ENV !== 'production'){
       {
         label: 'Toggle Dev Tools',
         click(item, focusedWindow){
-          
+          focusedWindow.toggleDevTools();
         }
+      },
+      {
+        role: 'reload'
       }
     ]
   });
