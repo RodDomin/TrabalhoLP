@@ -7,6 +7,9 @@
     "start": "electron .",
     "dev": "nodemon main.js"
   },
+  "dependencies": {
+    "morgan": "^1.9.1"
+  },
   "author": "Rodrigo Alves/Ruben Galvão",
   "license": "MIT",
   "devDependencies": {
