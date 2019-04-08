@@ -1,6 +1,7 @@
 .eve_nav{
-    background-color: rgb(71, 73, 76);
+    background-color: rgba(71, 73, 76, 0.5);
     color: rgb(255, 255, 255);
+    box-shadow: 0px 10px 30px gray;
     
 }
 

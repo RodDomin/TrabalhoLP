@@ -19,7 +19,7 @@ function createWindow () {
     }
     else{
       console.log("internet funcionando");
-      win.loadFile("index.html");
+      win.loadFile('Views/Caradd.html');
     }
 
     const MainMenu = Menu.buildFromTemplate(mainMenuTemplate);
