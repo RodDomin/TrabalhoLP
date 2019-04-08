@@ -14,36 +14,55 @@
         <form class="d-flex flex-column p-5">
             <div class="form-group">
               <label for="exampleInputEmail1">Codigo do Carro:</label>
-              <input type="text" class="form-control" placeholder="Codigo Carro">
+              <input type="text" class="form-control item" placeholder="Codigo Carro">
             </div>
     
             <div class="form-group">
               <label for="exampleInputPassword1">Nome do Carro:</label>
-              <input type="text" class="form-control" placeholder="Nome Carro">
+              <input type="text" class="form-control item" placeholder="Nome Carro">
             </div>
             
             <div class="form-group">
               <label for="exampleInputPassword1">Marca/Fabricante:</label>
-              <input type="text" class="form-control" placeholder="Marca/Fabricante">
+              <input type="text" class="form-control item" placeholder="Marca/Fabricante">
             </div>
             
             <div class="form-group">
               <label for="exampleInputPassword1">Ano do Carro:</label>
-              <input type="text" class="form-control" placeholder="Ano do Carro:">
+              <input type="text" class="form-control item" placeholder="Ano do Carro:">
             </div>
 
             <div class="form-group">
               <label for="exampleInputPassword1">Valor de Compra:</label>
-              <input type="text" class="form-control" placeholder="Valor de compra">
+              <input type="text" class="form-control item" placeholder="Valor de compra">
             </div>
 
             <div class="form-group">
               <label for="exampleInputPassword1">Valor de Revenda:</label>
-              <input type="text" class="form-control" placeholder="Valor de Revenda">
+              <input type="text" class="form-control item" placeholder="Valor de Revenda">
             </div>
             <button class="ele_botao"  type="submit" >Enviar</button>
           </form>
     </div>
+<script>
+  const electron = require('electron');
+  const { ipcRenderer } = electron;
 
+  const form = document.querySelector('form');
+  form.addEventListener('submit', submitform);
+
+  function submitform(e){
+    e.preventDefault();
+    console.log(123);
+    const item = document.querySelectorAll('.item');
+    var arr = [];
+    for(x = 0; x < item.length; x++){
+      arr[x] = item[x].value;
+    }
+    
+    ipcRenderer.send('item:add', arr);
+
+  }
+</script>
 </body>
 </html>
