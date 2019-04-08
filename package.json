@@ -1,0 +1,15 @@
+{
+  "name": "carros",
+  "version": "0.0.1",
+  "description": "Software para segunda prova de lp",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "nodemon main.js"
+  },
+  "author": "Rodrigo Alves/Ruben Galvão",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^4.1.4"
+  }
+}

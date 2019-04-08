@@ -1,0 +1,20 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.ele_card{
+    padding: 1em;
+    background-color: rgb(194, 198, 206);
+    display: flex;
+    justify-content: space-between;
+}
+.ele_card_img{
+    width: 50px;
+    height: 50px;
+    transition: 200ms;
+}
+.ele_card_img:hover{
+    width: 55px;
+    height: 55px;
+
+}
