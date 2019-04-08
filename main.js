@@ -1,13 +1,12 @@
 const { app, BrowserWindow, Menu } = require('electron');
 const dns = require('dns');
 
-// let ipcRenderer = require('electron').ipcRenderer;
+let ipcMain = require('electron').ipcMain;
 // ipcRenderer.send('submitForm', formData);
 
-// // main.js
-// ipcMain.on('submitForm', function(event, data) {
-//    // Access form data here
-// });
+ipcMain.on('item:add', function(event, data) {
+   console.log(data)
+});
 
 function createWindow () {
 
@@ -69,8 +68,11 @@ if(process.env.NODE_ENV !== 'production'){
       {
         label: 'Toggle Dev Tools',
         click(item, focusedWindow){
-          
+          focusedWindow.toggleDevTools();
         }
+      },
+      {
+        role: 'reload'
       }
     ]
   });
