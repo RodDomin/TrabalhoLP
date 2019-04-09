@@ -1,16 +1,19 @@
 const { app, BrowserWindow, Menu } = require('electron');
 const dns = require('dns');
+const path = require('path');
+const url = require('url');
 
 let ipcMain = require('electron').ipcMain;
-// ipcRenderer.send('submitForm', formData);
+let win;
 
-ipcMain.on('item:add', function(event, data) {
-   console.log(data)
-});
 
 function createWindow () {
 
-  let win = new BrowserWindow({ width: 800, height: 600 });
+  win = new BrowserWindow({ 
+    width: 800, 
+    height: 600, 
+    icon: 'public/icons/icons8-fiat-500-96.png' 
+  });
 
   dns.resolve('www.google.com',(error) =>{
     if(error){
@@ -35,11 +38,16 @@ function createAddWindow(){
   addWindow = new BrowserWindow({ 
     width: 450, 
     height: 450, 
-    title: 'Adicionando carro'
+    title: 'Adicionando carro',
+    icon: 'public/icons/icons8-fiat-500-96.png'
   });
   addWindow.loadFile("index.html");
 }
 
+ipcMain.on('item:add', function(event, data) {
+  console.log(data);
+  win.webContents.send('item:add', data);
+});
 
 const mainMenuTemplate = [
   {
