@@ -2,32 +2,26 @@ const { app, BrowserWindow, Menu } = require('electron');
 const dns = require('dns');
 const path = require('path');
 const url = require('url');
+const fs = require('fs');
+const FilesLoc = require('./src/Files');
 
 let ipcMain = require('electron').ipcMain;
 let win;
 
+process.env.NODE_ENV = 'develop';
 
 function createWindow () {
 
   win = new BrowserWindow({ 
     width: 800, 
     height: 600, 
-    icon: 'public/icons/icons8-fiat-500-96.png' 
+    icon: 'public/icons/icons8-fiat-500-96.png',
+    tiel: 'Pagina inicial'
   });
-
-  dns.resolve('www.google.com',(error) =>{
-    if(error){
-      console.log("internet sem funcionar");
-      win.loadFile("Views/NoInternet.html");
-    }
-    else{
-      console.log("internet funcionando");
-      win.loadFile('Views/Caradd.html');
-    }
-
-    const MainMenu = Menu.buildFromTemplate(mainMenuTemplate);
-    Menu.setApplicationMenu(MainMenu);
-  });
+    
+  win.loadFile('Views/Caradd.html');
+  const MainMenu = Menu.buildFromTemplate(mainMenuTemplate);
+  Menu.setApplicationMenu(MainMenu);
 
   win.on('closed', () =>{
     app.quit();
@@ -44,9 +38,43 @@ function createAddWindow(){
   addWindow.loadFile("index.html");
 }
 
+ipcMain.on('softStartup', (event) => {
+  fs.readdir('./Data/', function (err, files) {
+        
+    if(err){
+      return console.log(err);
+    } 
+  
+    var MiddleContent = [];
+    
+    for(i = 0; i < files.length; i++){
+      fs.readFile(`./Data/${files[i]}`, 'utf8',  (err, filedata) => {
+        if(err){
+          console.log(err);
+        }
+  
+        content = JSON.parse(filedata);
+                
+        MiddleContent[0] = content.Code;
+        MiddleContent[1] = content.Name;
+        MiddleContent[2] = content.Manufacturer;
+        MiddleContent[3] = content.Year;
+        MiddleContent[4] = content.BuyPrice;
+        MiddleContent[5] = content.SalePrice;
+                
+        event.sender.send('item:add', MiddleContent);
+      });
+    }
+  });
+
+});
+
 ipcMain.on('item:add', function(event, data) {
+
   console.log(data);
+  FilesLoc.escreveArq(data);
   win.webContents.send('item:add', data);
+
 });
 
 const mainMenuTemplate = [
