@@ -31,7 +31,7 @@ function createWindow () {
 function createAddWindow(){
   addWindow = new BrowserWindow({ 
     width: 450, 
-    height: 450, 
+    height: 550, 
     title: 'Adicionando carro',
     icon: 'public/icons/icons8-fiat-500-96.png'
   });
@@ -67,6 +67,16 @@ ipcMain.on('softStartup', (event) => {
     }
   });
 
+});
+
+ipcMain.on('page:new', (event, data) => {
+  if(data == 'add'){
+    createAddWindow();
+  }
+  
+  else{
+
+  }
 });
 
 ipcMain.on('item:add', function(event, data) {
