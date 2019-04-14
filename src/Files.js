@@ -1,7 +1,6 @@
 var fs = require('fs');
 
 module.exports = {
-
     escreveArq: (data) =>{
 
         var json = {

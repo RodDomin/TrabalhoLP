@@ -66,7 +66,6 @@ ipcMain.on('softStartup', (event) => {
       });
     }
   });
-
 });
 
 ipcMain.on('page:new', (event, data) => {

@@ -59,20 +59,29 @@ function createDivs(data){
     var flex = document.getElementsByClassName('d-flex');
     flex[1].appendChild(div_card_main);
 
-    new_itens();
 }
 
 ipcRenderer.on('item:add', (event, data) => {
-    createDivs(data);        
+    createDivs(data);      
+    new_itens();  
 });
 
 function new_itens(){
-    btn_edit = document.getElementsByClassName('btn-warning');
-    btn_remove = document.getElementsByClassName('btn-danger');
-
+    btn_edit = document.querySelectorAll('.btn-warning');
+    btn_remove = document.querySelectorAll('.btn-danger');
+    
+    console.log(btn_edit.length);
+    console.log(btn_remove.length);
+    
     for(i = 0; i < btn_edit.length; i++){
-        btn_edit[i].addEventListener('click', action('edit'));
-        btn_remove[i].addEventListener('click', action('remove'));
+        
+        btn_edit[i].addEventListener('click', () =>{
+            console.log('edit');
+        });
+
+        btn_remove[i].addEventListener('click', () =>{
+            console.log('remove');
+        });
     }
     
 }
