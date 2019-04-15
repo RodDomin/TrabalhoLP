@@ -6,7 +6,7 @@ const fs = require('fs');
 const FilesLoc = require('./src/Files');
 
 let ipcMain = require('electron').ipcMain;
-let win;
+let win, removeWindow;
 
 process.env.NODE_ENV = 'develop';
 
@@ -35,8 +35,28 @@ function createAddWindow(){
     title: 'Adicionando carro',
     icon: 'public/icons/icons8-fiat-500-96.png'
   });
-  addWindow.loadFile("index.html");
+  addWindow.loadFile("./Views/index.html");
 }
+
+function createRemoveWindow(){
+  removeWindow = new BrowserWindow({ 
+    width: 450, 
+    height: 550, 
+    title: 'Removendo Carro',
+    icon: 'public/icons/icons8-fiat-500-96.png'
+  });
+  removeWindow.loadFile("./Views/carRemove.html");
+}
+ipcMain.on('page:remove', (event, data) =>{
+  fs.unlink(`./Data/${data}.json`,(err)=>{
+    if(err){
+      console.log(err);
+    }
+    else{
+      console.log('Arquivo apagado com sucesso');
+    }
+  });
+});
 
 ipcMain.on('softStartup', (event) => {
   fs.readdir('./Data/', function (err, files) {
@@ -73,8 +93,8 @@ ipcMain.on('page:new', (event, data) => {
     createAddWindow();
   }
   
-  else{
-
+  else if (data == 'remove'){
+    createRemoveWindow();
   }
 });
 
